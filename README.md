@@ -68,6 +68,13 @@ Reliability: Deterministic behavior based on inputs.
 
 Conclusion
 To summarize, the decision-making tool used in the ALU Verilog code is the case statement, which enables the selection of specific arithmetic or logical operations based on a control signal (ALU_Sel). It is essential for enabling conditional behavior within the ALU. By organizing operational logic into distinct branches, the case statement not only simplifies design and maintenance but also ensures efficient hardware synthesis by translating into optimal multiplexer structures. This makes it an indispensable part of modern digital design, especially for projects such as a basic ALU in an internship or academic setting.
+output:
+A	B	Sel	Out	Carry
+0101	0011	000	1000	0
+0101	0011	001	0010	0
+0101	0011	010	0001
+0101	0011	011	0111
+0101	----	100	1010
 
 
 
