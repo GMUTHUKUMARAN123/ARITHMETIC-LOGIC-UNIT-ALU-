@@ -16,3 +16,9 @@ always @(posedge clk) begin
 end
 
 endmodule
+output:
+Time | WE | Addr | Din  | Dout
+  10 |  1 |  0   | A5   | 00
+  20 |  1 |  1   | 3C   | A5
+  30 |  0 |  0   | 3C   | A5
+  40 |  0 |  1   | 3C   | 3C
