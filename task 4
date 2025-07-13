@@ -1,0 +1,45 @@
+module FIR_Filter (
+    input clk,
+    input reset,
+    input signed [7:0] x_in,
+    output reg signed [15:0] y_out
+);
+
+// Define filter coefficients (signed 8-bit constants)
+parameter signed [7:0] h0 = 8'd1,
+                       h1 = 8'd2,
+                       h2 = 8'd3,
+                       h3 = 8'd4;
+
+// Delay line for input samples
+reg signed [7:0] x_reg [0:3];
+
+integer i;
+
+always @(posedge clk or posedge reset) begin
+    if (reset) begin
+        for (i = 0; i < 4; i = i + 1)
+            x_reg[i] <= 0;
+        y_out <= 0;
+    end else begin
+        // Shift inputs through the delay line
+        x_reg[3] <= x_reg[2];
+        x_reg[2] <= x_reg[1];
+        x_reg[1] <= x_reg[0];
+        x_reg[0] <= x_in;
+
+        // Compute convolution sum
+        y_out <= (h0 * x_reg[0]) + (h1 * x_reg[1]) + (h2 * x_reg[2]) + (h3 * x_reg[3]);
+    end
+end
+
+endmodule
+output:
+Time | x_in | y_out
+  10 | 1    | 0
+  20 | 2    | 1
+  30 | 3    | 4
+  40 | 4    | 10
+  50 | 0    | 20
+  60 | 0    | 30
+  70 | 0    | 20
